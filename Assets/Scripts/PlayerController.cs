@@ -1,4 +1,5 @@
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,6 +9,9 @@ public class PlayerController : MonoBehaviour
     public int moveSpeed = 5;
     public float counterForce = 0.7f;
     public float jumpForce = 10f;
+
+    private float baseDamage = 5f;
+    private float maxDamage = 20f;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

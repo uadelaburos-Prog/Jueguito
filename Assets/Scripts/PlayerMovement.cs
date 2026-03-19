@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider != null)
+        if(collision.collider.CompareTag("Floor"))
         {
             isGrounded = true;
             Debug.Log("Suelo");
@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.collider == null )
+        if(collision.collider == null)
         {
             isGrounded = false;
             Debug.Log("No Suelo");

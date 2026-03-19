@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - GrapplePoint
+  - Enemy
+  - Floor
   layers:
   - Default
   - TransparentFX
