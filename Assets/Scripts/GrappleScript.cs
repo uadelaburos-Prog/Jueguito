@@ -18,6 +18,8 @@ public class GrappleScript : MonoBehaviour
     private float minDistance = 0.0001f;
     private float maxDistance = 30f;
 
+    [SerializeField] private GameObject circle;
+
     public bool isGrappling => joint.enabled;
     void Start()
     {
@@ -79,6 +81,8 @@ public class GrappleScript : MonoBehaviour
         joint.maxDistanceOnly = true;
         grappleLine.enabled = true;
         joint.enabled = true;
+
+        Instantiate(circle, grapplePos, Quaternion.identity);
     }
     private void Release()
     {
@@ -95,6 +99,17 @@ public class GrappleScript : MonoBehaviour
             rb.linearVelocity = rb.linearVelocity.normalized * maxSwingVelocity;
         }
         rb.linearDamping = airDrag;
+
+        if (!isGrappling)
+        {
+            GameObject[] circle = GameObject.FindGameObjectsWithTag("GrapplePoint");
+            foreach (GameObject c in circle)
+            {
+                Destroy(c, 0f);
+            }
+                
+        }
+        
     }
     
     private void Swing()
@@ -139,6 +154,8 @@ public class GrappleScript : MonoBehaviour
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(transform.position, (Vector2)transform.position + tangent);
             Gizmos.DrawLine(transform.position, (Vector2)transform.position - tangent);
+
+            Gizmos.DrawWireSphere(joint.connectedAnchor, 0.5f);
         }
 
         Gizmos.color = Color.blue;

@@ -4111,7 +4111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedMult: 1.25
   normalGravity: 1
-  fallGravity: 2.25
+  fallGravity: 2
   maxFallSpeed: -10
   hangGravity: 1.5
   hangTimeThreshold: 0.2
@@ -4139,6 +4139,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   ropeLength: 10
+  circle: {fileID: 1374175721376084657, guid: 0a157ed8cda77304496d04117850d1b6, type: 3}
 --- !u!120 &1760395169
 LineRenderer:
   serializedVersion: 2
