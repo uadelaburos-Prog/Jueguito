@@ -3889,7 +3889,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1303746635}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -5149,9 +5149,10 @@ GameObject:
   - component: {fileID: 1760395168}
   - component: {fileID: 1760395169}
   - component: {fileID: 1760395170}
+  - component: {fileID: 1760395171}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5476,6 +5477,18 @@ DistanceJoint2D:
   m_AutoConfigureDistance: 1
   m_Distance: 480.2071
   m_MaxDistanceOnly: 0
+--- !u!114 &1760395171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760395161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47ec5801d513446489a732270d2d8f7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1784708583
 GameObject:
   m_ObjectHideFlags: 0
