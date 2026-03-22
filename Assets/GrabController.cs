@@ -15,6 +15,11 @@ public class GrabController : MonoBehaviour
             {
                 grabObject = objectGrab.gameObject;
             }
+
+            if (grabObject == grabObject.CompareTag("Player") || grabObject == grabObject.CompareTag("Floor"))
+            {
+                grabObject = null;
+            }
         }
 
         if (Input.GetMouseButtonUp(1))
@@ -25,11 +30,6 @@ public class GrabController : MonoBehaviour
         if (grabObject != null)
         {
             grabObject.transform.position = mouse;
-        }
-
-        if(grabObject == CompareTag("Player"))
-        {
-            grabObject = null;
         }
     }
 }
