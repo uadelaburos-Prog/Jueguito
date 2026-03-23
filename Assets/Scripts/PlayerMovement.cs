@@ -1,112 +1,123 @@
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    public float speedMult = 2f;
-    float speedPlayer;
-    int maxSpeed = 5;
-    Vector3 posAnterior;
-    GrappleScript grapple;
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+    private GrappleScript grapple;
+
+    [Header("Movimiento")]
+    [SerializeField] private float moveForce = 20f;
+    [SerializeField] private float maxSpeed = 8f;
+
+    [Header("Salto")]
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float jumpCutMult = 0.5f;
+    [SerializeField] private float jumpCooldown = 0.2f;
+
+    private bool isGrounded;
+    private float jumpTimer;
 
     [Header("Gravedad")]
     [SerializeField] private float normalGravity = 1f;
-    [SerializeField] private float fallGravity = 5.5f;
+    [SerializeField] private float fallGravity = 3f;
     [SerializeField] private float maxFallSpeed = -20f;
-    [SerializeField] private float hangGravity = 2f;
-    [SerializeField] private float hangTimeThreshold = 0.1f;
-    [SerializeField] private float downwardGravity = 2f;
 
-    [Header("Suelo")]
-    private bool isGrounded;
-    private bool jumpPressed;
-
-    [Header("Salto")]
-    [SerializeField, Range(0f, 1f)] private float jumpCutMult = 0.5f;
-    [SerializeField] private float jumpForce = 10f;
-    private bool jumpReady = true;
-    [SerializeField] private float jumpCooldown = 1.2f;
-    private float jumpCooldownTimer = 0f;
-    void Start()
+    void Awake()
     {
-        GrappleScript grapple = GetComponent<GrappleScript>();
         rb = GetComponent<Rigidbody2D>();
+        grapple = GetComponent<GrappleScript>();
     }
 
     void Update()
     {
+        HandleJumpInput();
+        HandleGravity();
+    }
 
-        jumpPressed = Input.GetKeyDown(KeyCode.Space);
+    void FixedUpdate()
+    {
+        Move();
+    }
 
-        speedPlayer = (transform.position - posAnterior).magnitude / Time.deltaTime;
-        posAnterior = transform.position;
+    private void Move()
+    {
+        float input = Input.GetAxis("Horizontal");
 
-        PlayerController speed = GetComponent<PlayerController>();
-        if (speedPlayer > 0.1f) 
-        { 
-            speed.moveSpeed = maxSpeed;
-        }
+        if (Mathf.Approximately(input, 0)) return;
 
-        if (jumpCooldownTimer > 0f)
+        // NO mover si estás grappling fuerte (opcional)
+        if (grapple != null && grapple.IsGrappling) return;
+
+        rb.AddForce(Vector2.right * input * moveForce);
+
+        // limitar velocidad sin romper física
+        if (Mathf.Abs(rb.linearVelocity.x) > maxSpeed)
         {
-            jumpCooldownTimer -= Time.deltaTime;
-            jumpReady = jumpCooldownTimer <= 0;
+            rb.linearVelocity = new Vector2(
+                Mathf.Sign(rb.linearVelocity.x) * maxSpeed,
+                rb.linearVelocity.y
+            );
         }
+    }
 
-        if (jumpPressed && isGrounded && jumpReady)
+    private void HandleJumpInput()
+    {
+        jumpTimer -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && jumpTimer <= 0f)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            jumpCooldownTimer = jumpCooldown;
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            jumpTimer = jumpCooldown;
         }
 
-        GrappleScript grapple = GetComponent<GrappleScript>();
-
+        // corte de salto (esto sí está bien hacerlo directo)
         if (Input.GetKeyUp(KeyCode.Space) && rb.linearVelocity.y > 0)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMult);
+            rb.linearVelocity = new Vector2(
+                rb.linearVelocity.x,
+                rb.linearVelocity.y * jumpCutMult
+            );
+        }
+    }
+
+    private void HandleGravity()
+    {
+        if (grapple != null && grapple.IsGrappling)
+        {
+            rb.gravityScale = normalGravity;
+            return;
         }
 
-        if (rb.linearVelocity.y < 0 && grapple.isGrappling == false)
+        if (rb.linearVelocity.y < 0)
         {
             rb.gravityScale = fallGravity;
-        }
-        else if (rb.linearVelocity.y > 0 && Mathf.Abs(rb.linearVelocity.y) < hangTimeThreshold)
-        {
-            rb.gravityScale = hangGravity;
         }
         else
         {
             rb.gravityScale = normalGravity;
         }
 
+        // limitar caída (suave)
         if (rb.linearVelocity.y < maxFallSpeed)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxFallSpeed);
         }
-
-        if(Input.GetKey(KeyCode.S) && !isGrounded)
-        {
-            rb.gravityScale = downwardGravity;
-        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.collider.CompareTag("Floor"))
+        if (collision.collider.CompareTag("Floor"))
         {
             isGrounded = true;
-            Debug.Log("Suelo");
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.collider == null)
+        if (collision.collider.CompareTag("Floor"))
         {
             isGrounded = false;
-            Debug.Log("No Suelo");
         }
     }
 }

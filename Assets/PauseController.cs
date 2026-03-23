@@ -9,10 +9,10 @@ public class PauseController : MonoBehaviour
     }
     public void Pause()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.Escape))
         {
-            pauseMenu.SetActive(true);
             Time.timeScale = 0f;
+            //pauseMenu.SetActive(true);            
         }
         
     }

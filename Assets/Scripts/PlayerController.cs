@@ -10,8 +10,7 @@ public class PlayerController : MonoBehaviour
     public float counterForce = 0.7f;
     public float jumpForce = 10f;
 
-    private float baseDamage = 5f;
-    private float maxDamage = 20f;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

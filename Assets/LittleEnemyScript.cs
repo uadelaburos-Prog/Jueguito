@@ -1,5 +1,9 @@
 using Unity.VisualScripting;
 using UnityEngine;
+<<<<<<< Updated upstream
+=======
+using UnityEngine.Rendering;
+>>>>>>> Stashed changes
 
 public class LittleEnemyScript : MonoBehaviour
 {
@@ -8,9 +12,16 @@ public class LittleEnemyScript : MonoBehaviour
     [SerializeField] private float attackRange = 1f;
     [Header("Movimiento")]
     [SerializeField] private float moveSpeed = 2f;
+<<<<<<< Updated upstream
     [Header("Ataque")]
     [SerializeField] private float attackDamage = 10f;
     [SerializeField] private float attackCooldown = 1f;
+=======
+    [SerializeField] private float waitTime = 3f;
+    [Header("Ataque")]
+    [SerializeField] private float attackDamage = 10f;
+    [SerializeField] private float attackCooldown = 5f;
+>>>>>>> Stashed changes
     [Header("Referencias")]
     [SerializeField] private Transform player;
     [SerializeField] private GameObject[] targets;
@@ -65,7 +76,11 @@ public class LittleEnemyScript : MonoBehaviour
     {
         if (Time.time >= attackCooldown)
         {
+<<<<<<< Updated upstream
             // Implement attack logic here, e.g., reduce player's health
+=======
+            // Aca se coloca la logica de ataque
+>>>>>>> Stashed changes
             Debug.Log("Attacking player for " + attackDamage + " damage!");
             attackCooldown = Time.time + 1f; // Reset cooldown
         }

@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuController : MonoBehaviour
+public class leMenuController : MonoBehaviour
 {
-    public void Play()
+    public void MenuPlay()
     {
         SceneManager.LoadScene("Nivel de Pruebas");
     }
 
-    public void Close()
+    public void GameClose()
     {
         Application.Quit();
     }
