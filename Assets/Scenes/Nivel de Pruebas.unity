@@ -1051,7 +1051,7 @@ GameObject:
   - component: {fileID: 206676438}
   - component: {fileID: 206676437}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Cubo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1441,6 +1441,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!1 &422051004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 422051005}
+  m_Layer: 0
+  m_Name: Tagets (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &422051005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422051004}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -458.71, y: -2.62, z: -0.05154869}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &481276539
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,6 +2522,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1517609294}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &674409639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674409640}
+  m_Layer: 0
+  m_Name: Tagets
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &674409640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674409639}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -466.09, y: -2.84, z: -0.05154869}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &674783067
 GameObject:
   m_ObjectHideFlags: 0
@@ -3928,9 +3990,8 @@ GameObject:
   - component: {fileID: 1303746636}
   - component: {fileID: 1303746639}
   - component: {fileID: 1303746640}
-  - component: {fileID: 1303746641}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: EnemyPlaceholder
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4079,24 +4140,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1303746635}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e2947bfe03a8254285a552fe8eca195, type: 3}
+  m_Script: {fileID: 11500000, guid: c569bd967cbb8504787ca60d665d88ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageMultiplier: 1
-  minVelocityToDamage: 2
---- !u!114 &1303746641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1303746635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da3fc0620548f6747b681a1580c2b96f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
+  followRange: 10
+  attackRange: 1
+  moveSpeed: 2
+  attackDamage: 10
+  attackCooldown: 1
+  player: {fileID: 1760395165}
+  targets:
+  - {fileID: 674409639}
+  - {fileID: 422051004}
 --- !u!1 &1336200894
 GameObject:
   m_ObjectHideFlags: 0
@@ -5651,6 +5706,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47ec5801d513446489a732270d2d8f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tags:
+  - Enemy
+  - Floor
+  - Player
 --- !u!1 &1784708583
 GameObject:
   m_ObjectHideFlags: 0
@@ -6611,3 +6670,5 @@ SceneRoots:
   - {fileID: 1419191873}
   - {fileID: 267935063}
   - {fileID: 206676440}
+  - {fileID: 674409640}
+  - {fileID: 422051005}
