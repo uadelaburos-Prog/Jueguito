@@ -4682,10 +4682,7 @@ MonoBehaviour:
   followRange: 10
   attackRange: 1
   moveSpeed: 2
-<<<<<<< Updated upstream
-=======
   waitTime: 3
->>>>>>> Stashed changes
   attackDamage: 10
   attackCooldown: 1
   player: {fileID: 1760395165}
@@ -7212,10 +7209,3 @@ SceneRoots:
   - {fileID: 206676440}
   - {fileID: 674409640}
   - {fileID: 422051005}
-<<<<<<< Updated upstream
-=======
-  - {fileID: 203773239}
-  - {fileID: 73988516}
-  - {fileID: 1265760846}
-  - {fileID: 680032977}
->>>>>>> Stashed changes
