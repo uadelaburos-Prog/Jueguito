@@ -4,6 +4,7 @@ using UnityEngine;
 public class GrabController : MonoBehaviour
 {
     private GameObject grabObject;
+    [SerializeField] private string[] Tags;
     private void Update()
     {
         Vector2 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -16,9 +17,13 @@ public class GrabController : MonoBehaviour
                 grabObject = objectGrab.gameObject;
             }
 
-            if (grabObject == grabObject.CompareTag("Player") || grabObject == grabObject.CompareTag("Floor"))
+            foreach (string tags in Tags)
             {
-                grabObject = null;
+                if (grabObject.CompareTag(tags))
+                {
+                    grabObject = null;
+                    break;
+                }
             }
         }
 
