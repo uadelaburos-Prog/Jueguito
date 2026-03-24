@@ -24,10 +24,6 @@ public class GrabController : MonoBehaviour
                     grabObject = null;
                     break;
                 }
-<<<<<<< Updated upstream
-=======
-                else if(grabObject == null) return;
->>>>>>> Stashed changes
             }
         }
 
