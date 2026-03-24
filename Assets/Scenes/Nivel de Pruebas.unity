@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1419191874}
         m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
@@ -2904,7 +2904,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1419191874}
         m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
@@ -3993,7 +3993,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1419191874}
         m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
         m_MethodName: Continue
         m_Mode: 1
@@ -4682,7 +4682,6 @@ MonoBehaviour:
   followRange: 10
   attackRange: 1
   moveSpeed: 2
-  waitTime: 3
   attackDamage: 10
   attackCooldown: 1
   player: {fileID: 1760395165}
@@ -5126,10 +5125,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1419191869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e75f820e53a33584594ff21e9e497b40, type: 3}
+  m_Script: {fileID: 11500000, guid: dd42f18d88025b8478f6cafdcf90a5b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 1419191869}
+  pauseMenu: {fileID: 1701291509}
 --- !u!1 &1517609293
 GameObject:
   m_ObjectHideFlags: 0
@@ -6073,16 +6072,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9123bffd437854d847ea86bcc10898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMult: 1.25
+  moveForce: 20
+  maxSpeed: 8
+  jumpForce: 15
+  jumpCutMult: 0.5
+  jumpCooldown: 1.2
   normalGravity: 1
   fallGravity: 2
   maxFallSpeed: -10
-  hangGravity: 1.5
-  hangTimeThreshold: 0.2
-  downwardGravity: 3
-  jumpCutMult: 0.5
-  jumpForce: 15
-  jumpCooldown: 1.2
 --- !u!114 &1760395168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6095,15 +6092,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f1096381f76884abdeb9e2e6d9fe18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 15
-  swing: 25
-  minSwing: 0.0001
-  maxSwing: 15
+  scrollSpeed: 4
+  minDistance: 0.5
+  maxDistance: 15
   grappleLayer:
     serializedVersion: 2
     m_Bits: 8
-  ropeLength: 10
-  circle: {fileID: 1374175721376084657, guid: 0a157ed8cda77304496d04117850d1b6, type: 3}
+  swingForce: 15
+  airDrag: 0.1
 --- !u!120 &1760395169
 LineRenderer:
   serializedVersion: 2
@@ -7209,3 +7205,7 @@ SceneRoots:
   - {fileID: 206676440}
   - {fileID: 674409640}
   - {fileID: 422051005}
+  - {fileID: 73988516}
+  - {fileID: 203773239}
+  - {fileID: 680032977}
+  - {fileID: 1265760846}

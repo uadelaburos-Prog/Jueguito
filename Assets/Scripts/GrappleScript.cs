@@ -4,7 +4,9 @@ using UnityEngine;
 public class GrappleScript : MonoBehaviour
 {
     [Header("Grapple")]
-    [SerializeField] private float maxDistance = 25f;
+    [SerializeField] private float scrollSpeed = 1f;
+    [SerializeField] private float minDistance = 0.5f;
+    [SerializeField] private float maxDistance = 10f;
     [SerializeField] private LayerMask grappleLayer;
 
     [Header("Swing")]
@@ -29,7 +31,7 @@ public class GrappleScript : MonoBehaviour
         line.enabled = false;
 
         joint.autoConfigureDistance = false;
-        joint.maxDistanceOnly = true;
+        joint.maxDistanceOnly = false;
     }
 
     void Update()
@@ -42,12 +44,13 @@ public class GrappleScript : MonoBehaviour
     {
         if (joint.enabled)
             ApplySwing();
+        if (joint.enabled) HandleDistance();
     }
 
     void LateUpdate()
     {
         if (!joint.enabled) return;
-
+        
         line.SetPosition(0, transform.position);
         line.SetPosition(1, grapplePoint);
     }
@@ -69,7 +72,7 @@ public class GrappleScript : MonoBehaviour
         joint.enabled = true;
         line.enabled = true;
 
-        rb.linearDamping = 0f; // importante en versiones viejas
+        rb.linearDamping = 0f; 
     }
 
     private void Release()
@@ -94,5 +97,21 @@ public class GrappleScript : MonoBehaviour
         tangent *= input;
 
         rb.AddForce(tangent * swingForce, ForceMode2D.Force);
+    }
+
+    private void HandleDistance()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if(scroll == 0) return; 
+
+        joint.distance -= scroll * scrollSpeed;
+        joint.distance = Mathf.Clamp(joint.distance, minDistance, maxDistance);
+   
+        if (scroll > 0)
+        {
+            Vector2 dir = (grapplePoint - (Vector2)transform.position).normalized;
+            rb.AddForce(dir * scroll * scrollSpeed * 0.3f, ForceMode2D.Impulse);
+        }
     }
 }
