@@ -7,6 +7,8 @@ TagManager:
   - GrapplePoint
   - Enemy
   - Floor
+  - Grappable
+  - Hookable
   layers:
   - Default
   - TransparentFX
@@ -14,9 +16,9 @@ TagManager:
   - Grappable
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Floor
+  - Destroy
+  - Hookable
   - 
   - 
   - 

@@ -4,12 +4,29 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+<<<<<<< Updated upstream
     public float speedMult = 2f;
     float speedPlayer;
     int maxSpeed = 5;
     Vector3 posAnterior;
     GrappleScript grapple;
     Rigidbody2D rb;
+=======
+    private Rigidbody2D rb;
+    private GrappleScript grapple;
+
+    [Header("Movimiento")]
+    [SerializeField] public float moveForce = 20f;
+    [SerializeField] private float maxSpeed = 8f;
+
+    [Header("Salto")]
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float jumpCutMult = 0.5f;
+    [SerializeField] private float jumpCooldown = 0.2f;
+
+    public bool isGrounded;
+    private float jumpTimer;
+>>>>>>> Stashed changes
 
     [Header("Gravedad")]
     [SerializeField] private float normalGravity = 1f;

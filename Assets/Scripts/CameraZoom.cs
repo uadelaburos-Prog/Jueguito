@@ -62,7 +62,7 @@ public class CameraZoom : MonoBehaviour
 
         if (IsJumping == true) onJumping();
     }
- 
+
     void onJumping()
     {
         //Sistema de Zoom de la camara al Saltar

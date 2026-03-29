@@ -3,6 +3,7 @@ using UnityEngine.Rendering;
 
 public class GrappleScript : MonoBehaviour
 {
+<<<<<<< Updated upstream
     [SerializeField] private float distance = 5.0f;
     private LineRenderer grappleLine;
     private DistanceJoint2D joint;
@@ -17,14 +18,42 @@ public class GrappleScript : MonoBehaviour
     private Vector2 grapplePos;
     private float minDistance = 0.0001f;
     private float maxDistance = 30f;
+=======
+    [Header("Grapple")]
+    [SerializeField] private float scrollSpeed = 1f;
+    [SerializeField] private float minDistance = 0.5f;
+    [SerializeField] private float maxDistance = 10f;
+    [SerializeField] private LayerMask grappleLayer;
+
+    [Header("Swing")]
+    //[SerializeField] private float swingForce = 15f;
+    [SerializeField] private float airDrag = 0.1f;
+
+    [Header("AirMove")]
+    //private float airControl = 0.5f;
+    private float acceleration = 50f; 
+
+    private Rigidbody2D rb;
+    private DistanceJoint2D joint;
+    private LineRenderer line;
+    private PlayerMovement player;
+>>>>>>> Stashed changes
 
     [SerializeField] private GameObject circle;
 
+<<<<<<< Updated upstream
     public bool isGrappling => joint.enabled;
     void Start()
+=======
+    private GameObject currentHook;
+    public bool IsGrappling => joint.enabled;
+
+    void Awake()
+>>>>>>> Stashed changes
     {
         grappleLine = GetComponent<LineRenderer>();
         joint = GetComponent<DistanceJoint2D>();
+<<<<<<< Updated upstream
         rb = GetComponent<Rigidbody2D>();
         grappleLine.enabled = false;
         joint.enabled = false;
@@ -42,6 +71,25 @@ public class GrappleScript : MonoBehaviour
         {
             Release();
         }
+=======
+        line = GetComponent<LineRenderer>();
+        player = GetComponent<PlayerMovement>();
+
+        joint.enabled = false;
+        line.enabled = false;
+
+        joint.autoConfigureDistance = false;
+        joint.enableCollision = false;
+        joint.autoConfigureConnectedAnchor = false;
+
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0)) Grapple();
+        if (Input.GetMouseButtonUp(0)) Release();
+        UpdateRope();
+>>>>>>> Stashed changes
     }
 
     private void LateUpdate()
@@ -86,6 +134,7 @@ public class GrappleScript : MonoBehaviour
     }
     private void Release()
     {
+<<<<<<< Updated upstream
         if (joint.enabled)
         {
             joint.enabled = false;
@@ -93,6 +142,99 @@ public class GrappleScript : MonoBehaviour
             grapplePos = Vector2.zero;
             grappleLine.SetPosition(0, Vector2.zero);
             grappleLine.SetPosition(1, Vector2.zero);
+=======
+        joint.enabled = false;
+        line.enabled = false;
+
+        rb.linearDamping = airDrag;
+    }
+
+    private void ApplySwing()
+    {
+        float input = Input.GetAxis("Horizontal");
+
+        //if (Mathf.Approximately(input, 0)) return;
+
+        Vector2 toAnchor = (Vector2)transform.position - grapplePoint;
+
+        // tangente del c�rculo (movimiento pendular real)
+        Vector2 tangent = new Vector2(-toAnchor.y, toAnchor.x).normalized;
+
+        float gravityPull = Vector2.Dot(Vector2.down * 9.8f, tangent);
+        rb.AddForce(tangent * gravityPull, ForceMode2D.Force);
+
+        float currentSpeed = Vector2.Dot(rb.linearVelocity, tangent);
+        rb.AddForce(tangent * currentSpeed * airDrag, ForceMode2D.Force);
+
+        if (!Mathf.Approximately(input, 0))
+        {
+            float targetVelocity = input * player.moveForce;
+            float velocityDiff = targetVelocity - Vector2.Dot(rb.linearVelocity, tangent);
+            float force = velocityDiff * acceleration;
+
+            rb.AddForce(tangent * force);
+        }
+
+        //cambios del movimiento
+        // direcci�n seg�n input
+        //tangent *= input;
+
+        //rb.AddForce(tangent * swingForce, ForceMode2D.Force);
+        //if(player.isGrounded == false)
+        //{
+        //    
+        //}
+    }
+
+    private void HandleDistance()
+    {
+        //float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        //if(scroll == 0) return; 
+
+        //joint.distance -= scroll * scrollSpeed;
+        //joint.distance = Mathf.Clamp(joint.distance, minDistance, maxDistance);
+
+        //if (scroll > 0)
+        //{
+        //    Vector2 dir = (grapplePoint - (Vector2)transform.position).normalized;
+        //    rb.AddForce(dir * scroll * scrollSpeed * 0.3f, ForceMode2D.Impulse);
+        //}
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            joint.distance -= scrollSpeed * Time.fixedDeltaTime;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            joint.distance += scrollSpeed * Time.fixedDeltaTime;
+        }
+
+        joint.distance = Mathf.Clamp(joint.distance, minDistance, maxDistance);
+    }
+
+    void UpdateRope()
+    {
+        if(line == null) return;
+
+
+        if (currentHook != null && IsGrappling)
+        {
+            line.positionCount = 2;
+            line.SetPosition(0, grapplePoint);
+            line.SetPosition(1, currentHook.transform.position);
+        }
+        else if(IsGrappling)
+        {
+            line.positionCount = 2;
+            line.SetPosition(0, grapplePoint);
+            line.SetPosition(1, grapplePoint);
+        }
+        else
+        {
+            line.positionCount = 0;
+>>>>>>> Stashed changes
         }
         if(rb.linearVelocity.magnitude > maxSwingVelocity)
         {
