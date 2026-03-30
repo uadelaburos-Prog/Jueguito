@@ -4,8 +4,6 @@ using UnityEngine;
 public class GrabController : MonoBehaviour
 {
     private GameObject grabObject;
-<<<<<<< Updated upstream
-=======
 
     [SerializeField] private float grabDistance = 10f;
     [SerializeField] private float grabForce = 15f;
@@ -17,11 +15,9 @@ public class GrabController : MonoBehaviour
 
     private Vector2 directionToPlayer;
 
+    [SerializeField] private LayerMask hookMask;
     private Vector2 hookPos;
     private Vector2 hookOffSet;
-
-    private float minDistanceHook = 0.5f;
-    private float maxDistanceHook = 20f;
 
     private void Start()
     {
@@ -34,26 +30,11 @@ public class GrabController : MonoBehaviour
         line.positionCount = 2;
         line.enabled = false;
     }
->>>>>>> Stashed changes
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
         {
-<<<<<<< Updated upstream
-            Collider2D objectGrab = Physics2D.OverlapPoint(mouse);
-
-            if (objectGrab != null)
-            {
-                grabObject = objectGrab.gameObject;
-            }
-
-            if (grabObject == grabObject.CompareTag("Player") || grabObject == grabObject.CompareTag("Floor"))
-            {
-                grabObject = null;
-            }
-=======
             TryHook();
->>>>>>> Stashed changes
         }
 
         if (Input.GetMouseButtonUp(1))
@@ -112,7 +93,7 @@ public class GrabController : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (mousePos - (Vector2)Raycasting.transform.position).normalized;
 
-        RaycastHit2D hit = Physics2D.Raycast(Raycasting.transform.position, direction, grabDistance);
+        RaycastHit2D hit = Physics2D.Raycast(Raycasting.transform.position, direction, grabDistance, hookMask);
 
         if (hit.collider != null && hit.collider.CompareTag("Hookable"))
         {

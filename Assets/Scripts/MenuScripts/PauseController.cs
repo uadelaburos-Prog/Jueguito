@@ -1,26 +1,28 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class PauseController : MonoBehaviour
+public class lePauseController : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject pauseMenus;
+
     private void Start()
     {
-        pauseMenu = GetComponent<GameObject>();
+        pauseMenus = GetComponent<GameObject>();
     }
-    public void Pause()
-    {
+
+    public void lePause()
+    {  
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            pauseMenu.SetActive(true);
+            pauseMenus.SetActive(true);
             Time.timeScale = 0f;
         }
         
     }
-    public void Continue()
+    public void leContinue()
     {
         Time.timeScale = 1f;
     }
-    public void Close()
+    public void leClose()
     {
         Application.Quit();
     }
