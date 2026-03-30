@@ -9,14 +9,19 @@ public class lePauseController : MonoBehaviour
         pauseMenus = GetComponent<GameObject>();
     }
 
-    public void lePause()
-    {  
+    public void EscPause()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             pauseMenus.SetActive(true);
             Time.timeScale = 0f;
         }
-        
+    }
+
+    public void lePause()
+    {
+        pauseMenus.SetActive(true);
+        Time.timeScale = 0f;
     }
     public void leContinue()
     {
